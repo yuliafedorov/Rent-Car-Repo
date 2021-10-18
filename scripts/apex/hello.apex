@@ -21,19 +21,19 @@
 // //5
 // System.debug(CarRentServices.getTopRatedSalesRepOfYear(5555));
 //////////////////////////////DML
-//1
-Date birthDate = Date.newInstance(2021, 08, 06);
-CarRentServices.createSalesManager('Vlad', birthDate);
+// //1
+// Date birthDate = Date.newInstance(2021, 08, 06);
+// CarRentServices.createSalesManager('Vlad', birthDate);
 // //2
 // DateTime startDate = DateTime.newInstance(2021, 08, 06, 3, 3, 3);
 // DateTime endDate = DateTime.newInstance(2021, 12, 09, 3, 3, 3);
 // CarRentServices.createNewDeal(startDate, endDate, 'a000900000HhaHaAAJ', 'a010900001YQLpLAAX' );
- //3
-Map<String, Object> fieldNameToValue = new Map<String, Object>();
-fieldNameToValue.put('Status__c', 'Won');
-DateTime endDate = DateTime.newInstance(3033, 12, 09, 3, 3, 3);
-fieldNameToValue.put('End_Date__c', endDate);
-CarRentServices.updateDeal('a0209000009rkT9AAI', fieldNameToValue);
+//  //3
+// Map<String, Object> fieldNameToValue = new Map<String, Object>();
+// fieldNameToValue.put('Status__c', 'Won');
+// DateTime endDate = DateTime.newInstance(3033, 12, 09, 3, 3, 3);
+// fieldNameToValue.put('End_Date__c', endDate);
+// CarRentServices.updateDeal('a0209000009rkT9AAI', fieldNameToValue);
 // //4
 // Id carId = 'a010900001WlXSKAA3';
 // CarRentServices.deactivateCar(carId);
