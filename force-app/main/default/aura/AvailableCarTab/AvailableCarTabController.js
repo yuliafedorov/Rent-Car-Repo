@@ -1,5 +1,11 @@
 ({
-    myAction : function(component, event, helper) {
-
-    }
-})
+    init: function (cmp, event, helper) {
+         cmp.set('v.mycolumns', [
+             { label: 'Car', fieldName: 'Name', type: 'text'},
+             { label: 'Type', fieldName: 'Type__c', type: 'text'},
+             { label: 'Model', fieldName: 'Model__c', type: 'text'}
+         ]);
+         helper.getData(cmp);
+     }
+ })
+ 
