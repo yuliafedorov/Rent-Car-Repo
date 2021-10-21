@@ -1,20 +1,18 @@
 public class CarTriggerHandler {
-    public static void updateOpenDeal(List<Car__c> carFromTrigger){
+    public static void updateOpenDeal(List<Car__c> newCarFromTrigger, Map<Id, Car__c> oldCarMapFromTrigger){
         Set<Id> carFromTriggerIdSet = new Set<Id>();
-        for(Car__c currentCar: carFromTrigger){
-            if(currentCar.Is_Valid_For_Rent__c == false){
+        for(Car__c currentCar: newCarFromTrigger){
+            if(!currentCar.Is_Valid_For_Rent__c 
+            && currentCar.Is_Valid_For_Rent__c != oldCarMapFromTrigger.get(currentCar.Id).Is_Valid_For_Rent__c){
                 carFromTriggerIdSet.add(currentCar.Id);
             }
         }
         List<Deal__c> relatedDeals = [SELECT Name, Car__c, Status__c FROM Deal__c
                                     WHERE Car__c IN :carFromTriggerIdSet AND Status__c = 'Open'];
-        List<Deal__c> closedDeals = new List<Deal__c>();
         for(Deal__c currentDeal: relatedDeals){
+
             currentDeal.Status__c = 'Lost';
-            closedDeals.add(currentDeal);
         }
-        if(closedDeals.size()>0){
-           update closedDeals;
-        }
+           update relatedDeals;
     }
  }

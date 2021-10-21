@@ -15,7 +15,10 @@ export default class OpenDeals extends LightningElement {
     columns = columns;
 
      @wire(getContactListyy, { salesManagerId: '$recordId' })
-    contacts;
+    deals;
+
+    @wire(test, { salesManagerId: '$recordId' })
+    tests;
 
     showToast() {
         const event = new ShowToastEvent({
