@@ -39,13 +39,13 @@ private class DealTriggerHandlerTest {
 
         Test.startTest();
         List<Database.SaveResult> result = Database.insert(duplicateDeals, false);
-        DealTriggerHandler.preventDealDuplicate(duplicateDeals);
+        DealTriggerHandler.preventDealDuplicate(deal);
         Test.stopTest();
 
         List<Deal__c> dealList = [SELECT Name FROM Deal__c];
         System.assertEquals(1, 
                             dealList.size(),
-                            'DealTriggerHandler.preventDealDuplicate is working correctly');
+                            'DealTriggerHandler.preventDealDuplicate is working incorrectly');
 
         for (Database.SaveResult oneResult : result) {
             if(!oneResult.isSuccess()) {

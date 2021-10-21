@@ -14,8 +14,8 @@ public class TestDataFactory {
         
         for(Integer i=0; i<numDeals; i++){
             deals.add(new Deal__c(Car__c = car.Id, Sales_Manager__c = salesManager.Id,
-                                Status__c = 'Open', Start_Date__c = startDate.addMinutes(i+1),
-                                End_Date__c = endDate.addMinutes(i+1)));
+                                Status__c = 'Open', Start_Date__c = startDate.addMinutes(i),
+                                End_Date__c = endDate.addMinutes(i)));
         }
         return deals;
     }

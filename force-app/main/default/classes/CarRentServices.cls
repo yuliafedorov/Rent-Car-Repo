@@ -53,7 +53,7 @@ public class CarRentServices {
                             FROM  Deal__c 
                             WHERE Status__c = 'Open'
                             AND Start_Date__c > :rentStart
-                            AND End_Date__c < :rentEnd)];
+                            AND End_Date__c <= :rentEnd)];
     }
 
     public static Map<Id, Integer> getCarRentStatistic(){
