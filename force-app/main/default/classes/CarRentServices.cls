@@ -70,17 +70,14 @@ public class CarRentServices {
         return resultMap;
     }
 
-    public static Id getTopRatedSalesRepOfYear(Integer year1){
+    public static Id getTopRatedSalesRepOfYear(Integer year){
         AggregateResult[] groupedResults = [SELECT Sales_Manager__c, COUNT(Id)
                                                 FROM Deal__c 
                                                 WHERE Status__c = 'Won'
-                                                AND CALENDAR_YEAR(End_Date__c) = :year1
+                                                AND CALENDAR_YEAR(End_Date__c) = :year
                                                 GROUP BY Sales_Manager__c
                                                 ORDER BY COUNT(Name) DESC
                                                 LIMIT 1];
-        if(groupedResults.isEmpty()){
-            return null;
-        }  
         return (Id) groupedResults[0].get('Sales_Manager__c');                                                                     
     }
 

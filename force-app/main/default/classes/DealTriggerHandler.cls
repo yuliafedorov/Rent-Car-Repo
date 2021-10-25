@@ -11,8 +11,8 @@ public  class DealTriggerHandler {
         for(Deal__c currentDeal: dealFromTrigger) {
             for(Integer i = 0; i < dealList.size(); i++){
                 if (currentDeal.Status__c == dealList[i].Status__c 
-                && currentDeal.Start_Date__c >= dealList[i].Start_Date__c
-                && currentDeal.End_Date__c <= dealList[i].End_Date__c){
+                && currentDeal.Start_Date__c <= dealList[i].End_Date__c
+                && currentDeal.End_Date__c >= dealList[i].Start_Date__c){
                     currentDeal.addError(Label.DuplicateDealError);
                 }
             }

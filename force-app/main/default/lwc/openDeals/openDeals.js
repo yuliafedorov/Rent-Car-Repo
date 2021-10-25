@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getContactListyy from '@salesforce/apex/OpenDealsController.returnOpenDeals';
+import getAccountCallout from '@salesforce/apex/OpenDealsController.getAccountCallout';
 
 
 const columns = [
@@ -11,22 +12,32 @@ const columns = [
 ];
 export default class OpenDeals extends LightningElement {
     @api recordId;
-    error;
     columns = columns;
+    @track accounts;
+    @track error;
 
      @wire(getContactListyy, { salesManagerId: '$recordId' })
     deals;
 
-    @wire(test, { salesManagerId: '$recordId' })
-    tests;
+    //  @wire(getAccountCallout, { salesManagerId: '$recordId' })
+    //  tests;
 
     showToast() {
+        
         const event = new ShowToastEvent({
             title: 'Warning',
-            message: 'Manager Sync is not yet configured',
+            message: 'hiManager Sync is not yet configured',
             variant: 'warning'
         });
         this.dispatchEvent(event);
+
+        getAccountCallout(this.recordId)
+        .then(result => {
+            this.accounts = result;
+        })
+        .catch(error => {
+            this.error = error;
+        });
     }
 
 }
