@@ -1,7 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getContactListyy from '@salesforce/apex/OpenDealsController.returnOpenDeals';
-import getAccountCallout from '@salesforce/apex/OpenDealsController.getAccountCallout';
+import returnOpenDeals from '@salesforce/apex/OpenDealsController.returnOpenDeals';
+//import pushSalesManager from '@salesforce/apex/OpenDealsController.pushSalesManager';
 
 
 const columns = [
@@ -13,31 +13,32 @@ const columns = [
 export default class OpenDeals extends LightningElement {
     @api recordId;
     columns = columns;
-    @track accounts;
-    @track error;
 
-     @wire(getContactListyy, { salesManagerId: '$recordId' })
+    @wire(returnOpenDeals, { salesManagerId: '$recordId' })
     deals;
 
-    //  @wire(getAccountCallout, { salesManagerId: '$recordId' })
-    //  tests;
-
     showToast() {
-        
         const event = new ShowToastEvent({
             title: 'Warning',
-            message: 'hiManager Sync is not yet configured',
+            message: 'Manager Sync is not yet configured',
             variant: 'warning'
         });
         this.dispatchEvent(event);
-
-        getAccountCallout(this.recordId)
-        .then(result => {
-            this.accounts = result;
-        })
-        .catch(error => {
-            this.error = error;
-        });
     }
 
+    // pushSalesManager (){
+    //     pushSalesManager({
+    //         salesManagerId: this.recordId
+    //     })
+    //     .then(result => {
+    //         if(result){
+    //             console.log(result);
+    //             console.log('+++');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.log('Error: ', error);
+    //         console.log('------');
+    //     })
+    // }
 }

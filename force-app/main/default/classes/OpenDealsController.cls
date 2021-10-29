@@ -1,14 +1,16 @@
 public with sharing class OpenDealsController {
+
     @AuraEnabled(cacheable=true)
     public static List<Deal__c> returnOpenDeals(Id salesManagerId) {
         return [SELECT Name, Car_Name__c, Sales_Manager__c, Start_Date__c, End_Date__c
-               FROM Deal__c WHERE Status__c = 'Open' AND Sales_Manager__c =: salesManagerId
-               WITH SECURITY_ENFORCED];
+               FROM Deal__c WHERE Status__c = 'Open' AND Sales_Manager__c =: salesManagerId];
     }
-    @AuraEnabled(cacheable=true)
-    public static void getAccountCallout(Id salesManagerId){
+
+    @AuraEnabled
+    public static void pushSalesManager(Id salesManagerId){
+
         Sales_Manager__c salesManager = [SELECT Name, Birth_Date__c, Email__c, Is_Synced__c
-                                        FROM Sales_Manager__c WHERE Id = :salesManagerId];
+                                        FROM Sales_Manager__c WHERE Id = :salesManagerId LIMIT 1];
     
         Http myhttp = new Http();
         HttpRequest request = new HttpRequest();
@@ -28,9 +30,7 @@ public with sharing class OpenDealsController {
         HttpResponse response = myhttp.send(request);
         if(response.getStatusCode() == 200){
             salesManager.Is_Synced__c = true;
-            salesManager.Name = 'Test';
             update salesManager;
-        }
-        
+        }   
     }
 }
