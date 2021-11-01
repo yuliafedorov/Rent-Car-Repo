@@ -9,7 +9,7 @@ public with sharing class OpenDealsController {
     @AuraEnabled
     public static void pushSalesManager(Id salesManagerId){
 
-        Sales_Manager__c salesManager = [SELECT Name, Birth_Date__c, Email__c, Is_Synced__c
+        Sales_Manager__c salesManager = [SELECT Name, Birth_Date__c, Email__c, Is_Synced__c, Salary__c, LastRaiseDate__c
                                         FROM Sales_Manager__c WHERE Id = :salesManagerId LIMIT 1];
     
         Http myhttp = new Http();
@@ -18,12 +18,14 @@ public with sharing class OpenDealsController {
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
     
-        JSONGenerator generator =JSON.createGenerator(false);
+        JSONGenerator generator = JSON.createGenerator(false);
         generator.writeStartObject();
         generator.writeStringField('name', salesManager.Name);
         generator.writeDateField('birth date', salesManager.Birth_Date__c);
         generator.writeStringField('email', salesManager.Email__c);
         generator.writeBooleanField('is synced', salesManager.Is_Synced__c);
+        generator.writeNumberField('salar', salesManager.Salary__c);
+        generator.writeDateField('last raise date', salesManager.LastRaiseDate__c);
         generator.writeEndObject();
         request.setBody(generator.getAsString());
     
