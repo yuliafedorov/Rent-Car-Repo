@@ -1,0 +1,69 @@
+<aura:component controller="DisplayRelatedController" implements="lightning:actionOverride,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickAction,force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes">
+    <!-- Attribute list [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+    <aura:attribute name="isFirst" type="boolean" default="true"/>
+    <aura:attribute name="isSecond" type="boolean" default="false"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="brandList" type="List"/>
+    <aura:attribute name="modelList" type="List"/>
+    <aura:attribute name="selectedId" type="Id"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:if isTrue = "{!v.isFirst}">
+<!-- Container from slds to display image on tile [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+        <div class="c-container" >
+            <lightning:layout multipleRows="true">
+                <aura:iteration items="{!v.brandList}" var="blist">
+         <lightning:layoutItem flexibility="auto" size="3" padding="around-small">
+                        <div >
+                            <ul class="slds-has-dividers_around-space">  
+                                <p align="justify">
+                                    <figure class="slds-image slds-image--card">
+                  <h3 class="slds-tile__title slds-truncate" title="{!blist.Name}">
+                  <a href="javascript:void(0);" label="{!blist.Name}">
+<!-- Onclick event used inside <Div> tag so to capture the Picture OnClick event [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<div onclick = "{!c.onPictureClick}" title = "{!blist.Id}" label="{!blist.Name}">
+<!-- Second Lightning Component to display the picture [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<!-- Attribute sending inside DisplayPictures event is pictureList and sObjectname [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<c:DisplayPictures  pictureList="{!blist}" sObjectName="Brand__c"/>
+                                                </div>
+                                            </a>
+                                        </h3>
+                                    </figure>
+                                </p>
+                            </ul>
+                        </div>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+        </div>
+    </aura:if>
+    <aura:if isTrue = "{!v.isSecond}">
+<lightning:button variant="brand" label="Back" title="Back" onclick="{!c.backClick }" />
+<!-- Container from slds to display image on tile [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+        <div class="c-container" >
+            <lightning:layout multipleRows="true">
+                <aura:iteration items="{!v.modelList}" var="blist">
+          <lightning:layoutItem flexibility="auto" size="3" padding="around-small">
+                        <div class="" >
+                            <ul class="slds-has-dividers_around-space">  
+                                <p align="justify">
+                                    <figure class="slds-image slds-image--card">
+                  <h3 class="slds-tile__title slds-truncate" title="{!blist.Name}">
+                             <a href="javascript:void(0);" label="{!blist.Name}">
+<!-- Onclick event used inside <Div> tag so to capture the Picture OnClick event [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+            <div title = "{!blist.Id}" label="{!blist.Name}">
+<!-- Second Lightning Component to display the picture [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<!-- Attribute sending inside DisplayPictures event is pictureList and sObjectname [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<c:DisplayPictures  pictureList="{!blist}" sObjectName="Car__c"/>
+                                                </div>
+                                            </a>
+                                        </h3>
+                                    </figure>
+                                </p>
+                            </ul>
+                        </div>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+        </div>
+    </aura:if>
+</aura:component>

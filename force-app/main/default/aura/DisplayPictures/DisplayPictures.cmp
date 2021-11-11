@@ -1,0 +1,25 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickAction" controller="DisplayRelatedController">
+ <!--Aura handler to handle doin it action [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    <!-- Aura Attributes [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+    <aura:attribute name="pictureList" type="List"/>
+    <aura:attribute name="contents" type="List" default="[]"/>
+    <aura:attribute name="sObjectName" type="String"/>
+    <!-- Below default value is the URL [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+    <aura:attribute name="prefixURL" type="String" default="/sfc/servlet.shepherd/version/download/"/>
+    <!-- Below line will Iterate all contents list [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+    <aura:iteration items="{!v.contents}" var="content">
+        <figure class="slds-image slds-image--card">
+<a href="javascript:void(0);" class="slds-image__crop  slds-image__crop--16-by-9">
+                <!--Below line will display the image by putting content id [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<img src="{!v.prefixURL + content.Id}" alt="Description of the image"/>
+            </a>
+            <!-- Below code is use to provide caption to the image [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+            <figcaption class="slds-image__title slds-image__title--card">
+                <!--below line will display the Name from pictureList [COPYRIGHTS : SalesforceKid (www.salesforcekid.com)]-->
+<span class="slds-image__text slds-truncate" title="Image Title">                       {!v.pictureList.Name}
+             </span>
+            </figcaption>
+        </figure>
+    </aura:iteration>
+</aura:component>

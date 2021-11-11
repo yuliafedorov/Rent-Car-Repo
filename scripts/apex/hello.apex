@@ -38,10 +38,14 @@
 // Id carId = 'a010900001WlXSKAA3';
 // CarRentServices.deactivateCar(carId);
 
-List<Deal__c> deals = [SELECT Sales_Manager__c FROM Deal__c WHERE Status__c = 'Won' ];
-        Map<String,Id> dealMap = new  Map<String,Id>();
-        for(Deal__c currentDeal: deals){
-            dealMap.put(currentDeal.Sales_Manager__c, currentDeal.Id);
-        }
-        System.debug(dealMap);
+// List<Deal__c> deals = [SELECT Sales_Manager__c FROM Deal__c WHERE Status__c = 'Won' ];
+//         Map<String,Id> dealMap = new  Map<String,Id>();
+//         for(Deal__c currentDeal: deals){
+//             dealMap.put(currentDeal.Sales_Manager__c, currentDeal.Id);
+//         }
+//         System.debug(dealMap);
+
+// List<Sales_Manager__c> oldestSalesManagerList = [SELECT Name FROM Sales_Manager__c
+//                                                      ORDER BY Birth_Date__c ASC LIMIT 2];
+// System.debug(oldestSalesManagerList);
 

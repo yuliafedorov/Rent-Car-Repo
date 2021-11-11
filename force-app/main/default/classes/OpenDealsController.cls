@@ -1,10 +1,19 @@
 public with sharing class OpenDealsController {
 
     @AuraEnabled(cacheable=true)
-    public static List<Deal__c> returnOpenDeals(Id salesManagerId) {
-        return [SELECT Name, Car_Name__c, Sales_Manager__c, Start_Date__c, End_Date__c
-               FROM Deal__c WHERE Status__c = 'Open' AND Sales_Manager__c =: salesManagerId];
-    }
+   public static List<Deal__c> returnOpenDeals( String searchKey, String sortBy, String sortDirection, Id salesManagerId) {
+       String status = 'Open';
+       String query = 'SELECT Name, Car_Name__c, Sales_Manager__c, Start_Date__c, End_Date__c FROM Deal__c WHERE (Status__c = :status AND Sales_Manager__c =: salesManagerId)';
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%';
+           query += ' AND Car_Name__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+   }
 
     @AuraEnabled
     public static void pushSalesManager(Id salesManagerId){
